@@ -100,10 +100,58 @@ dsi@14013000 {
 - **Mode**: Command mode
 - **Compatible (MIPI TX)**: `mediatek,mt6789-mipi-tx-cphy`
 
-### DSI Timing Values (из LK)
-- VSA (vertical sync active): 69 (0x45)
-- VFP (vertical front porch): 154 (0x9A)
-- HACT: 0x14814 = 84004 (可能是 timing register value)
+### DSI Register Map (из mtk_dsi.c + LK)
+
+| Offset | Register | Описание | LK Access |
+|--------|----------|----------|-----------|
+| **0x000** | `DSI_START` | Command mode trigger (bit 0 = kick) | 5 accesses: `&0xfffffffe \| 1` |
+| **0x008** | `DSI_INTEN` | Interrupt enable | — |
+| **0x00c** | `DSI_INTSTA` | Interrupt status (poll + write-1-to-clear) | 1 access: `= ~val` |
+| **0x010** | `DSI_CON_CTRL` | Control (bit 0=RESET, bit 1=EN, bit 2=DPHY_RESET) | — |
+| **0x014** | `DSI_MODE_CTRL` | Tx mode (0=CMD, 1=SYNC_PULSE, 2=SYNC_EVENT, 3=BURST) | 2 accesses: `& 3` (busy check) |
+| **0x018** | `DSI_TXRX_CTRL` | Lane config (bits [5:2]=LANE_NUM, bit 9=EXT_TE_EN) | — |
+| **0x01c** | `DSI_PSCTRL` | Pixel stream (bits [13:0]=WC, bits [17:16]=format) | — |
+| **0x020** | `DSI_VSA_NL` | Vertical sync active | — |
+| **0x024** | `DSI_VBP_NL` | Vertical back porch | — |
+| **0x028** | `DSI_VFP_NL` | Vertical front porch | — |
+| **0x02c** | `DSI_VACT_NL` | Vertical active lines | — |
+| **0x038** | `DSI_SIZE_CON` | Size (bits [30:16]=height, bits [14:0]=width) | — |
+| **0x050** | `DSI_HSA_WC` | Horizontal sync active word count | — |
+| **0x054** | `DSI_HBP_WC` | Horizontal back porch word count | — |
+| **0x058** | `DSI_HFP_WC` | Horizontal front porch word count | — |
+| **0x060** | `DSI_CMDQ_SIZE` | Command queue size | — |
+| **0x064** | `DSI_HSTX_CKL_WC` | High-speed Tx clock word count | — |
+| **0x06c** | `DSI_PHY_TIMECON` | PHY timing control | 1 access: `& 0xfffbffff` |
+| **0x074** | `DSI_RX_DATA0` | Receive data 0 | — |
+| **0x078** | `DSI_RX_DATA1` | Receive data 1 | — |
+| **0x07c** | `DSI_RX_DATA2` | Receive data 2 | — |
+| **0x080** | `DSI_RX_DATA3` | Receive data 3 | — |
+| **0x084** | `DSI_RACK` | Receive acknowledge (bit 0) | — |
+| **0x104** | `DSI_PHY_LCCON` | PHY lane clock (bit 0=HS_TX_EN, bit 1=ULPM_EN) | — |
+| **0x108** | `DSI_PHY_LD0CON` | PHY lane data 0 (bit 0=HS_TX_EN) | — |
+| **0x110** | `DSI_PHY_TIMECON0` | PHY timing 0 (LPX, HS_PREP, HS_ZERO, HS_TRAIL) | — |
+| **0x114** | `DSI_PHY_TIMECON1` | PHY timing 1 (TA_GO, TA_SURE, TA_GET, DA_HS_EXIT) | — |
+| **0x118** | `DSI_PHY_TIMECON2` | PHY timing 2 (CONT_DET, DA_HS_SYNC, CLK_ZERO, CLK_TRAIL) | — |
+| **0x11c** | `DSI_PHY_TIMECON3` | PHY timing 3 (CLK_HS_PREP, CLK_HS_POST, CLK_HS_EXIT) | — |
+| **0x130** | `DSI_VM_CMD_CON` | VM command control (bit 0=VM_CMD_EN, bit 5=TS_VFP_EN) | 1 access: `\|= 0x21` |
+| **0xd00** | DSI_CMDQ | Command queue base (mt6789 specific) | — |
+
+### DSI Function Pointers (из LK)
+
+| Переменная | Вероятная функция | Вызывается с |
+|------------|-------------------|-------------|
+| `_DAT_0010ab58` | DSI DCS write (single byte) | `(cmd_byte)` |
+| `_DAT_0010ab88` | DSI DCS write (command + params) | `(cmd_id, param_byte, data_ptr, count)` |
+| `_DAT_0010ab98` | DSI generic write / VM command | `(payload_ptr, word_count, flag)` |
+
+### DSI Command Mode Flow (из LK)
+
+```
+1. Записать данные в CMDQ (через _DAT_0010ab88/_DAT_0010ab98)
+2. Проверить DSI_STATUS (0x014) == idle (bits [1:0] == 0)
+3. Записать DSI_START (0x000): bit 0 clear → set (kick)
+4. Ждать DSI_INTSTA (0x00c): CMD_DONE_INT_FLAG (bit 1)
+```
 
 ### DSI GPIO Pin Mapping (из LK)
 
@@ -309,6 +357,23 @@ gce-subsys = <
 ### MUX Paths
 - **disp0**: TOP_UNIVPLL_D6_D2 → TOP_UNIVPLL_D4_D2 → TOP_UNIVPLL_D6 → TOP_MAINPLL_D4
 - **mdp0**: TOP_MMPLL_D5_D2 → TOP_MMPLL_D4_D2 → TOP_MAINPLL_D5 → TOP_TVDPLL
+
+---
+
+## Framebuffer и FPS (из декомпилированного LK)
+
+### _DAT_0010a258 — FB Physical Base Address
+- **Запись**:唯一 в `FUN_00044cdc` (line 49014)
+- **Значение**: `*puVar5` — из mblock query по имени `"framebuffer"`
+- **literal 0xfe0c8000**: НЕ найден в коде. Адрес динамический из mblock allocator
+- **Цепочка**: `FUN_00010a00("framebuffer")` → mblock entry → `*entry` → `_DAT_0010a258`
+
+### _DAT_0010a274 — FPS Value
+- **Запись**: `FUN_00045050` (lines 49256-49282)
+- **Вычисление**: `FUN_00045ec4()` → `100000000 / delta` (units: 1/100 fps)
+- **Default**: `6000` (= 60.00 fps) если FPS detection fails
+- **Формат**: `"%s, fps=%d"` — логируется при инициализации
+- **Подтверждение**: continuous-scan гипотеза — FPS в 1/100 единицах, default 6000 = 60 fps
 
 ---
 
