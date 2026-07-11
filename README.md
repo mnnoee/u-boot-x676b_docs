@@ -29,16 +29,18 @@
 
 ## Текущий статус
 
-### Что работает
+### Что работает (обновлено 2026-07-11)
 - ✅ PHY probe успешен (`MUSB: PHY probed OK`)
 - ✅ MUSB инициализируется
 - ✅ Bootmenu загружается (с Fastboot по умолчанию)
 - ✅ UFS storage доступен
 - ✅ USB stack стабилен
 - ✅ Чтение UFS работает
+- ✅ **USB CDC ACM работает** — PC видит устройство как `U-Boot USB download gadget` на `/dev/ttyACM1`
+- ✅ Serial подключение работает (921600 baud)
+- ✅ **Button/Keypad driver работает** — `button vup` отвечает (code=115, Volume Up)
 
 ### Проблемы
-- ❌ PC не видит USB устройство (pullup toggle)
 - ❌ Дисплей не работает (simple-framebuffer removed)
 
 ## Быстрый старт

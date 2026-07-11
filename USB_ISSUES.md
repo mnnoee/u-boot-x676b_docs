@@ -1,6 +1,66 @@
 # USB Проблемы
 
-## Проблема: PC не видит USB устройство
+## ✅ USB работает (обновлено 2026-07-11)
+
+### Текущий статус
+USB stack работает! PC видит устройство через CDC ACM:
+
+```
+Bus 003 Device 126: ID 0000:0000 U-Boot USB download gadget
+```
+
+**Подключение:**
+- Порт: `/dev/ttyACM1`
+- Baudrate: 921600
+- Driver: `cdc_acm`
+- USB path: `pci-0000:2f:00.3-usbv2-0:3.3.4:1.0`
+
+**Подтверждено:**
+- ✅ `serial_list_ports` находит устройство
+- ✅ `serial_open_port` открывает соединение
+- ✅ `serial_write_data` отправляет команды
+- ✅ `serial_read_for_duration` читает ответы
+- ✅ U-Boot отвечает на команды (`help`, `bdinfo`, `printenv`)
+
+**Пример подключения:**
+```bash
+# Через picocom
+picocom -b 921600 /dev/ttyACM1
+
+# Через opencode serial инструменты
+serial_open_port port=/dev/ttyACM1 baud_rate=921600
+serial_write_data port_id=<id> data="help\n"
+serial_read_for_duration port_id=<id> duration=2
+```
+
+### Тестирование кнопок (2026-07-11)
+
+Кнопки работают! Пример вывода `button vup`:
+```
+button vup
+KP: probe start
+KP: addr=0x10010000
+KP: ioremap...
+KP: base=0000000010010000
+KP: reading props...
+KP: code=115 reg=0xc val=0xdfef
+off
+```
+
+**Разбор:**
+- `code=115` — KEY_VOLUMEUP (Volume Up)
+- `reg=0xc` — регистр состояния кнопки
+- `val=0xdfef` — значение регистра (кнопка нажата)
+- `off` — кнопка отпущена
+
+**Доступные кнопки:**
+- `button vup` — Volume Up (code=115)
+- `button vdown` — Volume Down (code=114)
+- `button power` — Power (code=116)
+
+---
+
+## Историческая проблема: pullup toggle (РЕШЕНА)
 
 ### Симптомы
 - `fastboot 0 usb 0` запускается
