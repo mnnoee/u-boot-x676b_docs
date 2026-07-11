@@ -54,6 +54,35 @@ python mtk w lk_b ../u-boot-x676b/uboot-lk-x676b-v{N}.img
 - Логи сохраняются в `u-boot-x676b/uart-log-v{N}.txt`
 - Читать через: `strings uart-log-v{N}.txt`
 
+## Keypad и кнопки (v89)
+
+### Маппинг кнопок
+| Кнопка | Символ | Действие в bootmenu |
+|--------|--------|---------------------|
+| Volume Up | `\r` (Enter) | Выбор пункта |
+| Volume Down | `ESC [ B` | Скролл вниз |
+
+### Навигация
+- **Volume Down** — движение вниз, зациклено: последний → первый
+- **Volume Up** — выбор текущего пункта (или Enter)
+- **Зацикливание**: первый → последний, последний → первый
+
+### Тестирование кнопок
+```
+=> button vup
+on
+=> button vdown
+on
+=> button list
+vdown           on
+vup             on
+```
+
+### Реализация
+- `common/console.c` — `button_input_poll()` опрашивает keypad и добавляет символы в FIFO буфер
+- `cmd/bootmenu.c` — зацикливание навигации (BKEY_DOWN, BKEY_UP)
+- `drivers/button/button-mtk-kp.c` — драйвер keypad (MT6789矩阵 контроллер)
+
 ## Анализ DTB
 - Реальный DTB из firmware: `заметки/devtree/base_tree.dts`
 - DTB из mainline kernel: `src_linux/linux/arch/arm64/boot/dts/mediatek/mt6789.dtsi`

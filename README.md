@@ -39,6 +39,8 @@
 - ✅ **USB CDC ACM работает** — PC видит устройство как `U-Boot USB download gadget` на `/dev/ttyACM1`
 - ✅ Serial подключение работает (921600 baud)
 - ✅ **Button/Keypad driver работает** (v88) — `button vup` и `button vdown` корректно определяют нажатие
+- ✅ **Кнопки интегрированы в bootmenu** (v89) — Volume Up = Enter, Volume Down = скролл вниз
+- ✅ **Навигация с зацикливанием** — последний пункт → первый, первый → последний
 
 ### Проблемы
 - ❌ Дисплей не работает (simple-framebuffer removed)
