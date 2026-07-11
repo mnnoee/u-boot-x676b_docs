@@ -49,14 +49,16 @@ off
 
 **Разбор:**
 - `code=115` — KEY_VOLUMEUP (Volume Up)
-- `reg=0xc` — регистр состояния кнопки
+- `reg=0xc` — регистр KP_MEM3
 - `val=0xdfef` — значение регистра (кнопка нажата)
-- `off` — кнопка отпущена
+
+**Исправлено (v88):**
+- Исправлена логика `button_mtk_kp_get_state()` — была неправильная проверка `(val & matrix_val) != matrix_val`
+- Теперь проверяется `val == matrix_val` (active-low: биты LOW когда кнопка нажата)
 
 **Доступные кнопки:**
-- `button vup` — Volume Up (code=115)
-- `button vdown` — Volume Down (code=114)
-- `button power` — Power (code=116)
+- `button vup` — Volume Up (code=115, reg=0xc, val=0xdfef)
+- `button vdown` — Volume Down (code=114, reg=0xc, val=0xbfdf)
 
 ---
 
