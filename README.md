@@ -38,7 +38,7 @@
 - ✅ Чтение UFS работает
 - ✅ **USB CDC ACM работает** — PC видит устройство как `U-Boot USB download gadget` на `/dev/ttyACM1`
 - ✅ Serial подключение работает (921600 baud)
-- ✅ **Button/Keypad driver работает** — `button vup` отвечает (code=115, Volume Up)
+- ✅ **Button/Keypad driver работает** (v88) — `button vup` и `button vdown` корректно определяют нажатие
 
 ### Проблемы
 - ❌ Дисплей не работает (simple-framebuffer removed)

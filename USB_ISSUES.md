@@ -56,6 +56,16 @@ off
 - Исправлена логика `button_mtk_kp_get_state()` — была неправильная проверка `(val & matrix_val) != matrix_val`
 - Теперь проверяется `val == matrix_val` (active-low: биты LOW когда кнопка нажата)
 
+**Интеграция в bootmenu (v89):**
+- Модифицированы `tstc()` и `getchar()` в `common/console.c`
+- Добавлен FIFO буфер для символов, генерируемых кнопками
+- `button_input_poll()` опрашивает keypad и добавляет символы:
+  - Volume Up → Enter (`\r`)
+  - Volume Down → Стрелка вниз (`ESC [ B`)
+- Добавлено зацикливание навигации в `cmd/bootmenu.c`:
+  - BKEY_DOWN: последний пункт → первый
+  - BKEY_UP: первый → последний
+
 **Доступные кнопки:**
 - `button vup` — Volume Up (code=115, reg=0xc, val=0xdfef)
 - `button vdown` — Volume Down (code=114, reg=0xc, val=0xbfdf)
