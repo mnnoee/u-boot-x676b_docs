@@ -1,0 +1,254 @@
+File: /workdir/git/heliog99/lk_unpack_v0/lk_a_lk.bin.c
+Global Variable Declarations (Lines 2915-2952)
+All registers in the RDMA0 range are declared as global undefined symbols (Ghidra decompilation artifacts for memory-mapped I/O):
+Line	Declaration
+2915	undefined DAT_ffff000014007014;
+2916	undefined DAT_ffff000014007010;
+2917	undefined DAT_ffff000014007024;
+2918	undefined DAT_ffff000014007f00;
+2919	undefined DAT_ffff00001400702c;
+2920	undefined DAT_ffff000014007000;
+2921	undefined DAT_ffff000014007018;
+2922	undefined DAT_ffff000014007030;
+2923	undefined DAT_ffff000014007034;
+2924	undefined DAT_ffff00001400703c;
+2925	undefined DAT_ffff000014007040;
+2926	undefined DAT_ffff0000140070a8;
+2927	undefined DAT_ffff0000140070ac;
+2928	undefined DAT_ffff0000140070b0;
+2929	undefined DAT_ffff0000140070d0;
+2930	undefined DAT_ffff0000140070d4;
+2931	undefined DAT_ffff0000140070d8;
+2932	undefined DAT_ffff0000140070dc;
+2933	undefined DAT_ffff0000140070e8;
+2934	undefined DAT_ffff0000140071a8;
+2935	undefined DAT_ffff000014007054;
+2936	undefined DAT_ffff000014007058;
+2937	undefined DAT_ffff00001400705c;
+2938	undefined DAT_ffff000014007060;
+2939	undefined DAT_ffff000014007064;
+2940	undefined DAT_ffff000014007068;
+2941	undefined DAT_ffff00001400706c;
+2942	undefined DAT_ffff000014007070;
+2943	undefined DAT_ffff000014007074;
+2944	undefined DAT_ffff000014007078;
+2945	undefined DAT_ffff00001400707c;
+2946	undefined DAT_ffff000014007080;
+2947	undefined DAT_ffff000014007084;
+2948	undefined DAT_ffff000014007088;
+2949	undefined DAT_ffff00001400708c;
+2950	undefined DAT_ffff0000140070a4;
+2951	undefined DAT_ffff0000140070c4;
+2952	undefined DAT_ffff000014007004;
+FUNCTION 1: FUN_00044130 (Line 48274) -- Main RDMA Configuration
+Signature (line 48273-48275):
+  undefined8 FUN_00044130(
+      undefined8 param_1, uint param_2, undefined4 param_3,
+      int param_4, undefined4 param_5, uint param_6,
+      uint param_7, undefined8 param_8, int param_9)
+Access #1 -- Line 48372 -- Offset 0x014 -- Read-Modify-Write:
+_DAT_ffff000014007014 = _DAT_ffff000014007014 & 0xff0fffff | 0x620000;
+- Direction: R then W
+- Value written: (old & 0xff0fffff) | 0x620000 -- sets bits 23:20 to 0x6 (likely lane config)
+Access #2 -- Line 48373 -- Offset 0x054 -- Write:
+_DAT_ffff000014007054 = 0x4a9;
+- Value: 0x4A9 (1193 decimal)
+Access #3 -- Line 48374 -- Offset 0x058 -- Write:
+_DAT_ffff000014007058 = 0;
+- Value: 0x0
+Access #4 -- Line 48375 -- Offset 0x05c -- Write:
+_DAT_ffff00001400705c = 0x661;
+- Value: 0x661 (1633 decimal)
+Access #5 -- Line 48376 -- Offset 0x060 -- Write:
+_DAT_ffff000014007060 = 0x4a9;
+- Value: 0x4A9
+Access #6 -- Line 48377 -- Offset 0x064 -- Write:
+_DAT_ffff000014007064 = 0xfffffe70;
+- Value: 0xFFFFFE70 (negative signed: -320)
+Access #7 -- Line 48378 -- Offset 0x068 -- Write:
+_DAT_ffff000014007068 = 0xfffffcc0;
+- Value: 0xFFFFFCC0 (negative signed: -832)
+Access #8 -- Line 48379 -- Offset 0x06c -- Write:
+_DAT_ffff00001400706c = 0x4a9;
+- Value: 0x4A9
+Access #9 -- Line 48380 -- Offset 0x070 -- Write:
+_DAT_ffff000014007070 = 0x811;
+- Value: 0x811 (2065 decimal)
+Access #10 -- Line 48381 -- Offset 0x074 -- Write:
+_DAT_ffff000014007074 = 0;
+- Value: 0x0
+Access #11 -- Line 48382 -- Offset 0x078 -- Write:
+_DAT_ffff000014007078 = 0xfffffff0;
+- Value: 0xFFFFFFF0 (negative signed: -16)
+Access #12 -- Line 48383 -- Offset 0x07c -- Write:
+_DAT_ffff00001400707c = 0xffffff80;
+- Value: 0xFFFFFF80 (negative signed: -128)
+Access #13 -- Line 48384 -- Offset 0x080 -- Write:
+_DAT_ffff000014007080 = 0xffffff80;
+- Value: 0xFFFFFF80 (negative signed: -128)
+Access #14 -- Line 48386 -- Offset 0x084 -- Write:
+_DAT_ffff000014007084 = 0;
+- Value: 0x0
+Access #15 -- Line 48387 -- Offset 0x088 -- Write:
+_DAT_ffff000014007088 = 0;
+- Value: 0x0
+Access #16 -- Line 48388 -- Offset 0x08c -- Write:
+_DAT_ffff00001400708c = 0;
+- Value: 0x0
+Access #17 -- Line 48394 -- Offset 0x014 -- Read-Modify-Write:
+_DAT_ffff000014007014 = _DAT_ffff000014007014 & 0xff0dffff;
+- Direction: R then W
+- Value: clears bits 21 and 20:16 (alternate branch, label LAB_000442cc)
+Access #18 -- Line 48397 -- Offset 0x03c -- Write:
+_DAT_ffff00001400703c = 0xbf6 - uVar2 / 64000;
+- Value: 0xBF6 (3062) minus computed divider
+Access #19 -- Lines 48398-48399 -- Offset 0x010 -- Read-Modify-Write:
+_DAT_ffff000014007010 =
+    _DAT_ffff000014007010 & 0xfffffffc | _DAT_ffff000014007010 & 1 | (param_2 & 1) << 1;
+- Direction: R then W
+- Value: modifies bits 1:0, inserting (param_2 & 1) << 1
+Access #20 -- Line 48408 -- Offset 0x03c -- Read (conditional check):
+if (0xff < _DAT_ffff00001400703c) {
+- Direction: Read only
+- Value checked: if > 0xFF (255)
+Access #21 -- Line 48409 -- Offset 0x03c -- Write:
+_DAT_ffff00001400703c = 0x100;
+- Value: 0x100 (256)
+Access #22 -- Line 48424 -- Offset 0x040 -- Write:
+_DAT_ffff000014007040 = 0x8bf60000;
+- Value: 0x8BF60000 (when param_9 != 0)
+Access #23 -- Line 48426 -- Offset 0x040 -- Write:
+_DAT_ffff000014007040 = uVar6 | 0x8bf60000;
+- Value: uVar6 | 0x8BF60000 (when param_9 == 0; uVar6 = uVar2 / 64000)
+Access #24 -- Line 48428 -- Offset 0x024 -- Read-Modify-Write:
+_DAT_ffff000014007024 = _DAT_ffff000014007024 & 0xfffffe0f | uVar3 | uVar7;
+- Direction: R then W
+- Value: clears bits 7:4, inserts uVar3 | uVar7
+Access #25 -- Line 48429 -- Offset 0xf00 -- Write:
+_DAT_ffff000014007f00 = param_3;
+- Value: param_3 (display ID or mode param)
+Access #26 -- Line 48430 -- Offset 0x02c -- Write:
+_DAT_ffff00001400702c = param_5;
+- Value: param_5
+Access #27 -- Line 48431 -- Offset 0x000 -- Write:
+_DAT_ffff000014007000 = 0x1f;
+- Value: 0x1F (31 decimal -- likely resets/unresets all 5 lanes)
+Access #28 -- Line 48432 -- Offset 0x014 -- Read-Modify-Write:
+_DAT_ffff000014007014 = _DAT_ffff000014007014 & 0xffffe000 | param_6 & 0x1fff;
+- Direction: R then W
+- Value: clears bits 12:0, inserts param_6 & 0x1FFF (likely video width)
+Access #29 -- Line 48436 -- Offset 0x018 -- Read-Modify-Write:
+_DAT_ffff000014007018 = _DAT_ffff000014007018 & 0xfff00000 | param_7 & 0xfffff;
+- Direction: R then W
+- Value: clears bits 19:0, inserts param_7 & 0xFFFFF (likely video height)
+Access #30 -- Line 48437 -- Offset 0x030 -- Write:
+_DAT_ffff000014007030 = (uVar6 | uVar4) + ((uVar9 * 0x104) / 1000) * 0x10000;
+- Value: computed timing (high word from uVar6|uVar4, low word from scaling)
+Access #31 -- Line 48438 -- Offset 0x034 -- Write:
+_DAT_ffff000014007034 = iVar5 + uVar4 + ((uVar2 / 16000) * 0xe6) / 1000;
+- Value: computed timing
+Access #32 -- Line 48439 -- Offset 0x0a8 -- Write:
+_DAT_ffff0000140070a8 = (uVar8 * 0x118) / 1000 + uVar10 * 0x10000;
+- Value: computed timing
+Access #33 -- Line 48440 -- Offset 0x0ac -- Write:
+_DAT_ffff0000140070ac = uVar6 + iVar5 + 0x10000;
+- Value: computed timing
+Access #34 -- Line 48441 -- Offset 0x0b0 -- Write:
+_DAT_ffff0000140070b0 = 0;
+- Value: 0x0
+Access #35 -- Lines 48442-48443 -- Offset 0x0d0 -- Write:
+_DAT_ffff0000140070d0 =
+    ((uint)((ulong)(uVar8 * 300) * 0x10624dd3 >> 0x20) & 0x3fffc0) * 0x400 + uVar7;
+- Value: computed timing (magic 0x10624dd3 is the inverse of 1000 for fixed-point division)
+Access #36 -- Line 48444 -- Offset 0x0d4 -- Write:
+_DAT_ffff0000140070d4 = iVar1 + uVar3;
+- Value: computed timing
+Access #37 -- Line 48445 -- Offset 0x0d8 -- Write:
+_DAT_ffff0000140070d8 = (uVar8 * 0x10e) / 1000 + uVar3 * 0x10000;
+- Value: computed timing
+Access #38 -- Line 48446 -- Offset 0x0dc -- Write:
+_DAT_ffff0000140070dc = iVar1 + (uVar8 * 0x122) / 1000;
+- Value: computed timing
+Access #39 -- Lines 48447-48449 -- Offset 0x0e8 -- Write:
+_DAT_ffff0000140070e8 =
+    ((uint)((ulong)(uVar9 * 0x78) * 0x10624dd3 >> 0x20) & 0x3fffc0) * 0x400 +
+    (uVar9 * 0x6e) / 1000;
+- Value: computed timing (fixed-point division by 1000)
+Access #40 -- Line 48450 -- Offset 0x1a8 -- Read-Modify-Write:
+_DAT_ffff0000140071a8 = _DAT_ffff0000140071a8 | 0x20000000;
+- Direction: R then W
+- Value: sets bit 29 (global enable / clock gate)
+FUNCTION 2: FUN_00044538 (Line 48492) -- RDMA Setup Wrapper
+Signature (line 48492):
+  undefined8 FUN_00044538(undefined8 param_1, long param_2)
+This function calls FUN_00044130 and then applies additional register writes when FUN_00012724() returns true.
+Access #41 -- Lines 48521-48522 -- Offset 0x0a4 -- Write:
+_DAT_ffff0000140070a4 =
+    (*(uint *)(param_2 + 0x8ac) - (*(uint *)(param_2 + 0x8ac) >> 3)) * 0x10000;
+- Value: (height - height/8) << 16 (7/8 of panel height in upper 16 bits)
+Access #42 -- Line 48523 -- Offset 0x0c4 -- Write:
+_DAT_ffff0000140070c4 = 0xffff7f00;
+- Value: 0xFFFF7F00 (mask value)
+Access #43 -- Lines 48524-48525 -- Offset 0x018 -- Read-Modify-Write:
+_DAT_ffff000014007018 =
+    _DAT_ffff000014007018 & 0xfff00000 | *(uint *)(param_2 + 0x8ac) >> 3 & 0xfffff;
+- Direction: R then W
+- Value: clears lower 20 bits, inserts height >> 3 & 0xFFFFF
+FUNCTION 3: FUN_00044644 (Line 48553) -- RDMA Status/Interrupt Poll
+Signature (line 48553):
+  int FUN_00044644(undefined8 param_1, uint param_2, int param_3)
+Access #44 -- Line 48560 -- Offset 0x004 -- Read (busy-wait loop):
+} while ((_DAT_ffff000014007004 & param_2) == 0);
+- Direction: Read
+- Context: Infinite busy-wait polling interrupt/status bits until param_2 bits are set in offset 0x004 (when param_3 < 1)
+Access #45 -- Line 48566 -- Offset 0x004 -- Read (polling loop with timeout):
+if ((_DAT_ffff000014007004 & param_2) != 0) {
+- Direction: Read
+- Context: Polling with timeout; checks if param_2 bits are set in status register
+Access #46 -- Line 48567 -- Offset 0x004 -- Read-Modify-Write (acknowledge):
+_DAT_ffff000014007004 = ~_DAT_ffff000014007004;
+- Direction: R then W
+- Value: writes bitwise NOT of current value (write-1-to-clear pattern for interrupt acknowledge)
+Summary of All Distinct Register Offsets Accessed
+Offset	Full Address	Access Type	Functions
+0x000	...7000	W	FUN_00044130
+0x004	...7004	R, R+W	FUN_00044644
+0x010	...7010	R+W	FUN_00044130
+0x014	...7014	R+W	FUN_00044130 (3 times)
+0x018	...7018	R+W	FUN_00044130, FUN_00044538
+0x024	...7024	R+W	FUN_00044130
+0x02c	...702c	W	FUN_00044130
+0x030	...7030	W	FUN_00044130
+0x034	...7034	W	FUN_00044130
+0x03c	...703c	W, R, W	FUN_00044130
+0x040	...7040	W	FUN_00044130 (2 conditional writes)
+0x054	...7054	W	FUN_00044130
+0x058	...7058	W	FUN_00044130
+0x05c	...705c	W	FUN_00044130
+0x060	...7060	W	FUN_00044130
+0x064	...7064	W	FUN_00044130
+0x068	...7068	W	FUN_00044130
+0x06c	...706c	W	FUN_00044130
+0x070	...7070	W	FUN_00044130
+0x074	...7074	W	FUN_00044130
+0x078	...7078	W	FUN_00044130
+0x07c	...707c	W	FUN_00044130
+0x080	...7080	W	FUN_00044130
+0x084	...7084	W	FUN_00044130
+0x088	...7088	W	FUN_00044130
+0x08c	...708c	W	FUN_00044130
+0x0a4	...70a4	W	FUN_00044538
+0x0a8	...70a8	W	FUN_00044130
+0x0ac	...70ac	W	FUN_00044130
+0x0b0	...70b0	W	FUN_00044130
+0x0c4	...70c4	W	FUN_00044538
+0x0d0	...70d0	W	FUN_00044130
+0x0d4	...70d4	W	FUN_00044130
+0x0d8	...70d8	W	FUN_00044130
+0x0dc	...70dc	W	FUN_00044130
+0x0e8	...70e8	W	FUN_00044130
+0x1a8	...71a8	R+W	FUN_00044130
+0xf00	...7f00	W	FUN_00044130
+Total: 38 distinct register offsets across 46 individual access operations in 3 functions.
+String Literal Search for "RDMA" / "rdma"
+No matches found. There are zero string literals containing "RDMA" or "rdma" (case-insensitive) anywhere in this file.

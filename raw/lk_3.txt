@@ -1,0 +1,302 @@
+Location 1: FUN_0003c8b8 — Lines 43993–44482, kick at lines 44448–44449
+Kick write (lines 44443–44449): via pointer puVar16 = &DAT_ffff000014013000 when param_1 == 0x17:
+44441:       if ((param_1 == 0x16) || ((DAT_ffff000014013014 & 3) == 0)) {
+44442:         if (param_1 == 0x17) {
+44443:           puVar16 = (uint *)&DAT_ffff000014013000;
+44444:         }
+44445:         else {
+44446:           puVar16 = *(uint **)(&DAT_0009a8d0 + (ulong)(param_1 != 0x10) * 8);
+44447:         }
+44448:         *puVar16 = *puVar16 & 0xfffffffe;
+44449:         *puVar16 = *puVar16 | 1;
+44450:         uVar9 = (ulong)(param_1 != 0x17 && param_1 != 0x10);
+44451:         if (((*(byte *)(*(long *)(&DAT_0009a8d0 + uVar9 * 8) + 0x14) & 3) == 0) &&
+44452:            (*(int *)(*(long *)(&DAT_0009a8d0 + uVar9 * 8) + 0xc) < 0)) {
+44453:           iVar18 = 0;
+44454:           do {
+44455:             iVar18 = iVar18 + 1;
+44456:             uVar15 = uVar9;
+44457:             if (((uint)(iVar18 * 0x26e978d5) >> 3 | iVar18 * -0x60000000) < 0x418938) {
+44458:               do {
+44459:                 bVar6 = uVar15 < uVar8;
+44460:                 uVar15 = uVar15 + 1;
+44461:               } while (bVar6);
+44462:             }
+44463:           } while (*(int *)(*(long *)(&DAT_0009a8d0 + uVar9 * 8) + 0xc) < 0);
+44464:         }
+44465:       }
+Surrounding context (40 lines before, 40 lines after):
+Before (lines 44401–44449):
+44401:       }
+44402:       else {
+44403:         if (uVar14 < 2) {
+44404:           if ((uVar3 & 0xff) == 0) {
+44405:             uVar10 = uVar17 & 0xfd | uVar5;
+44406:             uVar17 = 0x1300;
+44407:           }
+44408:           else {
+44409:             uVar10 = (uint)*pbVar7 << 0x18;
+44410:             uVar17 = uVar17 & 0xfd | uVar5 | 0x2300;
+44411:           }
+44412:           goto LAB_0003db4c;
+44413:         }
+44414:         uVar19 = *(ulong *)(&DAT_0009a900 + uVar9 * 8);
+44415:         *(uint *)(*(long *)(&DAT_0009a8d0 + uVar9 * 8) + 0x130) =
+44416:              uVar2 | uVar17 & 0xff0000fd | 0x2902;
+44417:         uVar17 = ((uint)uVar19 & 3) << 3;
+44418:         uVar21 = uVar19 + 1;
+44419:         *(uint *)(uVar19 & 0xfffffffffffffffc) =
+44420:              *(uint *)(uVar19 & 0xfffffffffffffffc) & (0xff << (ulong)uVar17 ^ 0xffffffffU) |
+44421:              uVar4 << (ulong)uVar17;
+44422:         uVar17 = (int)uVar21 << 3;
+44423:         pbVar12 = pbVar7;
+44424:         uVar19 = uVar15;
+44425:         do {
+44426:           puVar16 = (uint *)(uVar21 & 0xfffffffffffffffc);
+44427:           uVar10 = uVar17 & 0x18;
+44428:           uVar17 = uVar17 + 8;
+44429:           uVar19 = uVar19 - 1;
+44430:           uVar21 = uVar21 + 1;
+44431:           *puVar16 = *puVar16 & (0xff << (ulong)uVar10 ^ 0xffffffffU) |
+44432:                      (uint)*pbVar12 << (ulong)uVar10;
+44433:           pbVar12 = pbVar12 + 1;
+44434:         } while (uVar19 != 0);
+44435:       }
+44436:     }
+44437: LAB_0003db5c:
+44438:     bVar6 = uVar8 <= uVar9;
+44439:     uVar9 = uVar9 + 1;
+44440:     if (bVar6) {
+44441:       if ((param_1 == 0x16) || ((DAT_ffff000014013014 & 3) == 0)) {
+44442:         if (param_1 == 0x17) {
+44443:           puVar16 = (uint *)&DAT_ffff000014013000;
+44444:         }
+44445:         else {
+44446:           puVar16 = *(uint **)(&DAT_0009a8d0 + (ulong)(param_1 != 0x10) * 8);
+44447:         }
+44448:         *puVar16 = *puVar16 & 0xfffffffe;
+44449:         *puVar16 = *puVar16 | 1;
+After (lines 44449–44482):
+44449:         *puVar16 = *puVar16 | 1;
+44450:         uVar9 = (ulong)(param_1 != 0x17 && param_1 != 0x10);
+44451:         if (((*(byte *)(*(long *)(&DAT_0009a8d0 + uVar9 * 8) + 0x14) & 3) == 0) &&
+44452:            (*(int *)(*(long *)(&DAT_0009a8d0 + uVar9 * 8) + 0xc) < 0)) {
+44453:           iVar18 = 0;
+44454:           do {
+44455:             iVar18 = iVar18 + 1;
+44456:             uVar15 = uVar9;
+44457:             if (((uint)(iVar18 * 0x26e978d5) >> 3 | iVar18 * -0x60000000) < 0x418938) {
+44458:               do {
+44459:                 bVar6 = uVar15 < uVar8;
+44460:                 uVar15 = uVar15 + 1;
+44461:               } while (bVar6);
+44462:             }
+44463:           } while (*(int *)(*(long *)(&DAT_0009a8d0 + uVar9 * 8) + 0xc) < 0);
+44464:         }
+44465:       }
+44466:       else if ((param_1 == 0x17) || (param_1 == 0x10)) {
+44467:         _DAT_ffff000014013000 = _DAT_ffff000014013000 & 0xfffeffff | 0x10000;
+44468:       }
+44469:       if (param_3[3] == 0) {
+44470:         uVar9 = (ulong)(param_1 != 0x17 && param_1 != 0x10);
+44471:         do {
+44472:           lVar13 = uVar9 * 8;
+44473:           bVar6 = uVar9 < uVar8;
+44474:           uVar9 = uVar9 + 1;
+44475:           *(uint *)(*(long *)(&DAT_0009a8d0 + lVar13) + 0x104) =
+44476:                *(uint *)(*(long *)(&DAT_0009a8d0 + lVar13) + 0x104) & 0xfffffffe;
+44477:         } while (bVar6);
+44478:       }
+44479:       return;
+44480:     }
+44481:   } while( true );
+44482: }
+Analysis for Location 1:
+- DSI busy check (0x14013014): YES — line 44441 reads DAT_ffff000014013014 & 3
+- DSI_INTSTA poll (0x1401300c): No (not directly)
+- DISP_MUTEX0 (0x14001xxx): None
+- OVL0 (0x14005xxx): None
+- RDMA0 (0x14007xxx): None
+Location 2: FUN_0003c8b8 — Same function, kick at line 44467
+This is a second write path in the same function, taken when (param_1 == 0x17 || param_1 == 0x10) AND (DAT_ffff000014013014 & 3) != 0 (DSI busy). It writes bit 16 to DSI_START:
+44465:       }
+44466:       else if ((param_1 == 0x17) || (param_1 == 0x10)) {
+44467:         _DAT_ffff000014013000 = _DAT_ffff000014013000 & 0xfffeffff | 0x10000;
+44468:       }
+44469:       if (param_3[3] == 0) {
+Note: This write uses mask & 0xfffeffff | 0x10000 which clears bit 16 then sets bit 16 (effectively a "set bit 16" / DSI_START |= BIT(16)), NOT the standard bit-0 kick. However it is still a write to DSI_START.
+Analysis for Location 2:
+- DSI busy check (0x14013014): YES — line 44441 (same check that led here)
+- DISP_MUTEX0 / OVL0 / RDMA0: None in this path
+Location 3: FUN_0003e108 — Lines 44488–44584, kick at lines 44561+44566–44567
+44488: void FUN_0003e108(undefined1 param_1 [16],undefined1 param_2 [16],undefined1 param_3 [16],
+44489:                  undefined1 param_4 [16],undefined1 param_5 [16],undefined1 param_6 [16],
+44490:                  undefined1 param_7 [16],undefined1 param_8 [16],uint param_9,undefined8 param_10,
+44491:                  undefined4 *param_11,uint param_12,char param_13)
+44492: 
+44493: {
+44494:   bool bVar1;
+44495:   undefined4 *puVar2;
+44496:   int iVar3;
+44497:   ulong uVar4;
+44498:   undefined4 *puVar5;
+44499:   ulong uVar6;
+44500:   uint *puVar7;
+44501:   ulong uVar8;
+44502:   ulong uVar9;
+44503:   undefined8 unaff_x30;
+44504:   undefined1 extraout_q0 [16];
+44505:   
+44506:   FUN_00040668(param_9);
+44507:   uVar9 = (ulong)(param_9 != 0x17 && param_9 != 0x10);
+44508:   uVar6 = (ulong)(param_9 != 0x10);
+44509:   uVar8 = uVar9;
+44510:   do {
+44511:     if ((*(byte *)(*(long *)(&DAT_0009a8d0 + uVar8 * 8) + 0x14) & 3) == 0) {
+44512:       if (0x20 < param_12) {
+44513:                     // WARNING: Subroutine does not return
+44514:         FUN_0005ae64(extraout_q0,param_2,param_3,param_4,param_5,param_6,param_7,param_8,unaff_x30,
+44515:                      s_DEBUG_ASSERT_FAILED_at___s__d_____000a3dcb + 6);
+44516:       }
+44517:       if (((*(byte *)(*(long *)(&DAT_0009a8d0 + uVar9 * 8) + 0x14) & 3) == 0) &&
+44518:          (*(int *)(*(long *)(&DAT_0009a8d0 + uVar9 * 8) + 0xc) < 0)) {
+44519:         iVar3 = 0;
+44520:         do {
+44521:           iVar3 = iVar3 + 1;
+44522:           uVar4 = uVar9;
+44523:           if (((uint)(iVar3 * 0x26e978d5) >> 3 | iVar3 * -0x60000000) < 0x418938) {
+44524:             do {
+44525:               bVar1 = uVar4 < uVar6;
+44526:               uVar4 = uVar4 + 1;
+44527:             } while (bVar1);
+44528:           }
+44529:         } while (*(int *)(*(long *)(&DAT_0009a8d0 + uVar9 * 8) + 0xc) < 0);
+44530:       }
+44531:       if (param_12 != 0) {
+44532:         puVar2 = *(undefined4 **)(&DAT_0009a8f0 + uVar8 * 8);
+44533:         uVar4 = (ulong)param_12;
+44534:         puVar5 = param_11;
+44535:         do {
+44536:           uVar4 = uVar4 - 1;
+44537:           *puVar2 = *puVar5;
+44538:           puVar2 = puVar2 + 1;
+44539:           puVar5 = puVar5 + 1;
+44540:         } while (uVar4 != 0);
+44541:       }
+44542:       *(uint *)(*(long *)(&DAT_0009a8d0 + uVar8 * 8) + 0x60) = param_12 | 0x8000;
+44543:     }
+44544:     bVar1 = uVar8 < uVar6;
+44545:     uVar8 = uVar8 + 1;
+44546:   } while (bVar1);
+44547:   if (param_9 == 0x16) {
+44548:     if (param_13 == '\0') {
+44549:       return;
+44550:     }
+44551:   }
+44552:   else {
+44553:     if (param_13 == '\0') {
+44554:       return;
+44555:     }
+44556:     if ((_DAT_ffff000014013014 & 3) != 0) {
+44557:       return;
+44558:     }
+44559:   }
+44560:   if (param_9 == 0x17) {
+44561:     puVar7 = (uint *)&DAT_ffff000014013000;
+44562:   }
+44563:   else {
+44564:     puVar7 = *(uint **)(&DAT_0009a8d0 + (ulong)(param_9 != 0x10) * 8);
+44565:   }
+44566:   *puVar7 = *puVar7 & 0xfffffffe;
+44567:   *puVar7 = *puVar7 | 1;
+44568:   uVar8 = (ulong)(param_9 != 0x17 && param_9 != 0x10);
+44569:   if (((*(byte *)(*(long *)(&DAT_0009a8d0 + uVar8 * 8) + 0x14) & 3) == 0) &&
+44570:      (*(int *)(*(long *)(&DAT_0009a8d0 + uVar8 * 8) + 0xc) < 0)) {
+44571:     iVar3 = 0;
+44572:     do {
+44573:       iVar3 = iVar3 + 1;
+44574:       uVar9 = uVar8;
+44575:       if (((uint)(iVar3 * 0x26e978d5) >> 3 | iVar3 * -0x60000000) < 0x418938) {
+44576:         do {
+44577:           bVar1 = uVar9 < uVar6;
+44578:           uVar9 = uVar9 + 1;
+44579:         } while (bVar1);
+44580:       }
+44581:     } while (*(int *)(*(long *)(&DAT_0009a8d0 + uVar8 * 8) + 0xc) < 0);
+44582:   }
+44583:   return;
+44584: }
+Analysis for Location 3:
+- DSI busy check (0x14013014): YES — line 44556 reads _DAT_ffff000014013014 & 3, returns if non-zero
+- DSI_INTSTA poll (0x1401300c): No
+- DISP_MUTEX0 (0x14001xxx): None
+- OVL0 (0x14005xxx): None
+- RDMA0 (0x14007xxx): None
+Location 4: FUN_0003f1bc — Lines 45114–45141, kick at line 45128
+45114: undefined8
+45115: FUN_0003f1bc(undefined1 param_1 [16],undefined1 param_2 [16],undefined1 param_3 [16],
+45116:             undefined1 param_4 [16],undefined1 param_5 [16],undefined1 param_6 [16],
+45117:             undefined1 param_7 [16],undefined1 param_8 [16],uint param_9,undefined8 param_10)
+45118: 
+45119: {
+45120:   uint *puVar1;
+45121:   undefined4 local_14;
+45122:   
+45123:   if (*(int *)((ulong)(param_9 != 0x17 && param_9 != 0x10) * 0x728 + 0x108668) == 0) {
+45124:     local_14 = 0x2c3909;
+45125:     FUN_0003e108(param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,param_9,param_10,
+45126:                  &local_14,1,'\0');
+45127:     if (param_9 == 0x17) {
+45128:       _DAT_ffff000014013000 = _DAT_ffff000014013000 & 0xfffffffe | 1;
+45129:       return 0;
+45130:     }
+45131:   }
+45132:   else if (param_9 == 0x17) {
+45133:     puVar1 = (uint *)&DAT_ffff000014013000;
+45134:     goto LAB_0003f248;
+45135:   }
+45136:   puVar1 = *(uint **)(&DAT_0009a8d0 + (ulong)(param_9 != 0x10) * 8);
+45137: LAB_0003f248:
+45138:   *puVar1 = *puVar1 & 0xfffffffe;
+45139:   *puVar1 = *puVar1 | 1;
+45140:   return 0;
+45141: }
+Analysis for Location 4 (line 45128):
+- This is a direct write: _DAT_ffff000014013000 & 0xfffffffe | 1 — classic bit-0 kick
+- DSI busy check (0x14013014): No (not in this path)
+- DISP_MUTEX0 / OVL0 / RDMA0: None
+Location 5: FUN_0003f1bc — Same function, kick at lines 45133+45138–45139
+This is the second path in FUN_0003f1bc, taken when *(int *)(...0x108668) != 0 AND param_9 == 0x17:
+45132:   else if (param_9 == 0x17) {
+45133:     puVar1 = (uint *)&DAT_ffff000014013000;
+45134:     goto LAB_0003f248;
+45135:   }
+45136:   puVar1 = *(uint **)(&DAT_0009a8d0 + (ulong)(param_9 != 0x10) * 8);
+45137: LAB_0003f248:
+45138:   *puVar1 = *puVar1 & 0xfffffffe;
+45139:   *puVar1 = *puVar1 | 1;
+45140:   return 0;
+Analysis for Location 5:
+- Classic bit-0 kick via pointer: & 0xfffffffe then | 1
+- DSI busy check (0x14013014): No
+- DISP_MUTEX0 / OVL0 / RDMA0: None
+Additional DSI register references in the 5 functions
+DSI_INTSTA poll (0x1401300c) — line 45297 in FUN_0003f830:
+45296:   if ((param_1 == 0x17) || (param_1 == 0x10)) {
+45297:     puVar3 = (uint *)&DAT_ffff00001401300c;
+45298:   }
+This is in a separate function FUN_0003f830 (line 45288), not in any of the 5 kick functions.
+Other DSI register writes in FUN_0003c8b8:
+- Line 44803: _DAT_ffff000014013130 = _DAT_ffff000014013130 | 0x21; (DSI_INTEN)
+- Line 44829: _DAT_ffff00001401306c = _DAT_ffff00001401306c & 0xfffbffff; (DSI_VM_CMD_CON)
+Summary
+#	Function	Lines	Kick Type	DSI busy check	DSI_INTSTA	DISP_MUTEX0	OVL0	RDMA0
+1	FUN_0003c8b8	44448-44449	bit-0 kick via ptr	YES (44441)	No	None	None	None
+2	FUN_0003c8b8	44467	bit-16 set	YES (44441)	No	None	None	None
+3	FUN_0003e108	44566-44567	bit-0 kick via ptr	YES (44556)	No	None	None	None
+4	FUN_0003f1bc	45128	bit-0 kick direct	No	No	None	None	None
+5	FUN_0003f1bc	45138-45139	bit-0 kick via ptr	No	No	None	None	None
+DISP_MUTEX0 (0x14001xxx): NO writes anywhere near these 5 locations.
+OVL0 (0x14005xxx): NO writes anywhere near these 5 locations (OVL0 writes are in separate functions around lines 46700-47100+).
+RDMA0 (0x14007xxx): NO writes anywhere near these 5 locations (RDMA0 writes are in a separate function around lines 48370-48570).
+DSI_INTSTA (0x1401300c): Only referenced in FUN_0003f830 at line 45297, not in any of the 5 kick functions.

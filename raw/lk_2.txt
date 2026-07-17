@@ -1,0 +1,354 @@
+COMPLETE FINDINGS
+FILE: /workdir/git/heliog99/lk_unpack_v0/lk_a_lk.bin.c
+1. OVL0 RANGE: 0xffff000014005000-0xffff000014005fff
+Global Symbol Declarations (lines 2824-2825)
+Line 2824: undefined DAT_ffff00001400500c;    (OVL0 offset 0x00C)
+Line 2825: undefined DAT_ffff000014005024;    (OVL0 offset 0x024)
+Function: FUN_00041a30 (lines 46699-46731) — OVL0 Overlay Enable/Config
+Line 46721 — READ pointer setup (base address of OVL0 register + delta):
+puVar1 = (uint *)(&DAT_ffff00001400500c + uVar3);
+- Register: OVL0 + 0x00C + uVar3 (uVar3 is 0 for display5, or 0x14006000 - _DAT_000ad2d8 for display6)
+- Function: FUN_00041a30
+Line 46723 — READ+WRITE at OVL0+0x00C (value |= 0x1):
+*puVar1 = *puVar1 | 1;
+- Register: OVL0 + 0x00C
+- Value: existing & 0x00000001 OR 0x00000001
+- Function: FUN_00041a30
+Line 46726 — READ+WRITE at OVL0+0x024 (value |= 0x1):
+*(uint *)(&DAT_ffff000014005024 + uVar3) = *(uint *)(&DAT_ffff000014005024 + uVar3) | 1;
+- Register: OVL0 + 0x024
+- Value: existing | 0x00000001
+- Function: FUN_00041a30
+Line 46727 — READ+WRITE at OVL0+0x024 (value |= 0x01000000):
+*(uint *)(&DAT_ffff000014005024 + uVar3) = *(uint *)(&DAT_ffff000014005024 + uVar3) | 0x1000000;
+- Register: OVL0 + 0x024
+- Value: existing | 0x01000000
+- Function: FUN_00041a30
+Line 46728 — READ+WRITE at OVL0+0x024 (value |= 0x04000000):
+*(uint *)(&DAT_ffff000014005024 + uVar3) = *(uint *)(&DAT_ffff000014005024 + uVar3) | 0x4000000;
+- Register: OVL0 + 0x024
+- Value: existing | 0x04000000
+- Function: FUN_00041a30
+Line 46729 — READ+WRITE at OVL0+0x00C (value |= 0x400000):
+*puVar1 = *puVar1 | 0x400000;
+- Register: OVL0 + 0x00C
+- Value: existing | 0x00400000
+- Function: FUN_00041a30
+Function: FUN_00041b00 (lines 46737-46763) — OVL0 Disable/Clear
+Line 46760 — WRITE at OVL0+0x00C (value = 0):
+*(undefined4 *)(&DAT_ffff00001400500c + uVar2) = 0;
+- Register: OVL0 + 0x00C + uVar2 (uVar2=0 for display5, or delta for display6)
+- Value: 0x00000000
+- Function: FUN_00041b00
+Function: FUN_00041f74 (lines 47022-47055+) — OVL0 Reset/Clear
+Line 47036 — WRITE at OVL0+0x00C (value = 0):
+_DAT_ffff00001400500c = 0;
+- Register: OVL0 + 0x00C (when param_9 == 5)
+- Value: 0x00000000
+- Function: FUN_00041f74
+Line 47046 — WRITE at OVL0+0x00C (value = 0):
+*(undefined4 *)(&DAT_ffff00001400500c + uVar3) = 0;
+- Register: OVL0 + 0x00C + uVar3 (when param_9 == 6, uVar3 = 0x14006000 - DAT000ad2d8)
+- Value: 0x00000000
+- Function: FUN_00041f74
+Function: FUN_000420d0 (lines 47098-47158) — OVL0 Config + MMSYS Switch
+Line 47110 — READ pointer setup:
+puVar2 = (uint *)&DAT_ffff000014005024;
+- Register: OVL0 + 0x024 (when param_9 == 5)
+- Function: FUN_000420d0
+Line 47117 — READ pointer setup:
+puVar2 = (uint *)(&DAT_ffff000014005024 + (0x14006000 - DAT_000ad2d8));
+- Register: OVL0 + 0x024 + delta (when param_9 == 6)
+- Function: FUN_000420d0
+Line 47120 — READ+WRITE at OVL0+0x024 (clear bit 2):
+*puVar2 = *puVar2 & 0xfffffffb;
+- Register: OVL0 + 0x024
+- Value: existing & ~0x00000004 (clear bit 2)
+- Function: FUN_000420d0
+Line 47135 — READ at OVL0+0x024 (load into uVar1):
+uVar1 = *puVar2 & 0xfffffffb;
+- Register: OVL0 + 0x024
+- Value: existing & 0xFFFFFFFB
+- Function: FUN_000420d0
+Line 47137 — READ at OVL0+0x024 (set bit 2):
+uVar1 = *puVar2 | 4;
+- Register: OVL0 + 0x024
+- Value: existing | 0x00000004
+- Function: FUN_000420d0
+Line 47139 — WRITE at OVL0+0x024:
+*puVar2 = uVar1;
+- Register: OVL0 + 0x024
+- Value: uVar1 (computed above)
+- Function: FUN_000420d0
+2. DISP_MUTEX0 RANGE: 0xffff000014001000-0xffff000014001fff
+NO ACCESSES FOUND
+Zero references to any address in the range 0xffff000014001000-0xffff000014001fff exist anywhere in this file. The only mention of "MUTEX" is a debug print string at line 2739/45604:
+Line 2739: string s_MUTEX%d_:SOF=%s,EOF=%s,WAIT=%d,m_0009b3c3;
+This is a format string, not a hardware register access.
+3. MMSYS CONFIG RANGE: 0xffff000014000000-0xffff000014000fff
+Global Symbol Declarations (lines 2721-2749, 2828)
+Line 2721: undefined DAT_ffff000014000e9c;   (MMSYS offset 0xE9C)
+Line 2722: undefined DAT_ffff000014000ea0;   (MMSYS offset 0xEA0)
+Line 2723: undefined DAT_ffff000014000ea4;   (MMSYS offset 0xEA4)
+Line 2724: undefined DAT_ffff000014000e80;   (MMSYS offset 0xE80)
+Line 2725: undefined DAT_ffff000014000e84;   (MMSYS offset 0xE84)
+Line 2726: undefined DAT_ffff000014000e88;   (MMSYS offset 0xE88)
+Line 2727: undefined DAT_ffff000014000ea8;   (MMSYS offset 0xEA8)
+Line 2728: undefined DAT_ffff000014000eac;   (MMSYS offset 0xEAC)
+Line 2729: undefined DAT_ffff000014000eb0;   (MMSYS offset 0xEB0)
+Line 2730: undefined DAT_ffff000014000e70;   (MMSYS offset 0xE70)
+Line 2731: undefined DAT_ffff000014000e74;   (MMSYS offset 0xE74)
+Line 2732: undefined DAT_ffff000014000e78;   (MMSYS offset 0xE78)
+Line 2733: undefined DAT_ffff0000140008dc;   (MMSYS offset 0x8DC)
+Line 2734: undefined DAT_ffff0000140008e0;   (MMSYS offset 0x8E0)
+Line 2735: undefined DAT_ffff000014000100;   (MMSYS offset 0x100)
+Line 2737: undefined DAT_ffff000014000110;   (MMSYS offset 0x110)
+Line 2744: undefined DAT_ffff000014000108;   (MMSYS offset 0x108)
+Line 2745: undefined DAT_ffff000014000118;   (MMSYS offset 0x118)
+Line 2746: undefined DAT_ffff0000140001a8;   (MMSYS offset 0x1A8)
+Line 2747: undefined DAT_ffff000014000104;   (MMSYS offset 0x104)
+Line 2748: undefined DAT_ffff000014000114;   (MMSYS offset 0x114)
+Line 2749: undefined DAT_ffff0000140001a4;   (MMSYS offset 0x1A4)
+Line 2828: undefined DAT_ffff000014000f04;   (MMSYS offset 0xF04)
+Function: FUN_00040064 (lines 45494-45637+) — MMSYS Status Read/Debug Dump
+Line 45522 — READ at MMSYS+0x8E0:
+uVar3 = _DAT_ffff0000140008e0;
+- Register: MMSYS + 0x8E0
+- Value: read into uVar3
+- Function: FUN_00040064
+Line 45523 — READ at MMSYS+0x8DC:
+uVar1 = _DAT_ffff0000140008dc;
+- Register: MMSYS + 0x8DC
+- Value: read into uVar1
+- Function: FUN_00040064
+Line 45524 — READ at MMSYS+0x100:
+uVar7 = _DAT_ffff000014000100;
+- Register: MMSYS + 0x100
+- Value: read into uVar7
+- Function: FUN_00040064
+Line 45526 — READ at MMSYS+0xE9C:
+local_80 = _DAT_ffff000014000e9c;
+- Register: MMSYS + 0xE9C
+- Value: read into local_80
+- Function: FUN_00040064
+Line 45527 — READ at MMSYS+0xEA0:
+local_7c = _DAT_ffff000014000ea0;
+- Register: MMSYS + 0xEA0
+- Value: read into local_7c
+- Function: FUN_00040064
+Line 45528 — READ at MMSYS+0xEA4:
+local_78 = _DAT_ffff000014000ea4;
+- Register: MMSYS + 0xEA4
+- Value: read into local_78
+- Function: FUN_00040064
+Line 45529 — READ at MMSYS+0xE80:
+local_74 = _DAT_ffff000014000e80;
+- Register: MMSYS + 0xE80
+- Value: read into local_74
+- Function: FUN_00040064
+Line 45530 — READ at MMSYS+0xE84:
+local_70 = _DAT_ffff000014000e84;
+- Register: MMSYS + 0xE84
+- Value: read into local_70
+- Function: FUN_00040064
+Line 45531 — READ at MMSYS+0xE88:
+local_6c = _DAT_ffff000014000e88;
+- Register: MMSYS + 0xE88
+- Value: read into local_6c
+- Function: FUN_00040064
+Line 45532 — READ at MMSYS+0xEA8:
+local_98[0] = _DAT_ffff000014000ea8;
+- Register: MMSYS + 0xEA8
+- Value: read into local_980
+- Function: FUN_00040064
+Line 45533 — READ at MMSYS+0xEAC:
+local_98[1] = _DAT_ffff000014000eac;
+- Register: MMSYS + 0xEAC
+- Value: read into local_981
+- Function: FUN_00040064
+Line 45534 — READ at MMSYS+0xEB0:
+local_98[2] = _DAT_ffff000014000eb0;
+- Register: MMSYS + 0xEB0
+- Value: read into local_982
+- Function: FUN_00040064
+Line 45535 — READ at MMSYS+0xE70:
+local_98[3] = _DAT_ffff000014000e70;
+- Register: MMSYS + 0xE70
+- Value: read into local_983
+- Function: FUN_00040064
+Line 45536 — READ at MMSYS+0xE74:
+local_98[4] = _DAT_ffff000014000e74;
+- Register: MMSYS + 0xE74
+- Value: read into local_984
+- Function: FUN_00040064
+Line 45537 — READ at MMSYS+0xE78:
+local_98[5] = _DAT_ffff000014000e78;
+- Register: MMSYS + 0xE78
+- Value: read into local_985
+- Function: FUN_00040064
+Line 45544 — READ at MMSYS+0x110:
+uVar2 = _DAT_ffff000014000110;
+- Register: MMSYS + 0x110
+- Value: read into uVar2
+- Function: FUN_00040064
+Function: FUN_00040490 (lines 45645-45701) — MMSYS Clock Enable
+Line 45651 — READ pointer setup:
+puVar1 = (uint *)&DAT_ffff000014000108;
+- Register: MMSYS + 0x108 (initial pointer target)
+- Function: FUN_00040490
+Line 45655 — READ+WRITE at MMSYS+0x108 (value |= 0x00420803):
+_DAT_ffff000014000108 = _DAT_ffff000014000108 | 0x420803;
+- Register: MMSYS + 0x108
+- Value: existing | 0x00420803
+- Condition: switch case 2
+- Function: FUN_00040490
+Line 45656 — READ pointer reassignment:
+puVar1 = (uint *)&DAT_ffff000014000118;
+- Register: MMSYS + 0x118 (new pointer target for case 2)
+- Function: FUN_00040490
+Line 45691 — READ+WRITE at MMSYS+0x108 (value |= 0x00080000):
+_DAT_ffff000014000108 = _DAT_ffff000014000108 | 0x80000;
+- Register: MMSYS + 0x108
+- Value: existing | 0x00080000
+- Condition: switch case 0x10
+- Function: FUN_00040490
+Line 45692 — READ pointer reassignment:
+puVar1 = (uint *)&DAT_ffff0000140001a8;
+- Register: MMSYS + 0x1A8 (new pointer target for case 0x10)
+- Function: FUN_00040490
+Line 45698 — READ+WRITE at MMSYS (through puVar1):
+*puVar1 = *puVar1 | uVar2;
+- Register: One of MMSYS+0x108, MMSYS+0x118, or MMSYS+0x1A8 depending on switch case
+- Value: existing | uVar2 (varies: 4, 0x1000000, 1, 0x10, 8, 0x80, 0x400, 0x200, 0x100, 0x2000, 0x4000, 0x10000, 0x20)
+- Function: FUN_00040490
+Function: FUN_0004057c (lines 45707-45760) — MMSYS Clock Disable
+Line 45715 — READ+WRITE at MMSYS+0x114 (value |= 0x01000000):
+_DAT_ffff000014000114 = _DAT_ffff000014000114 | 0x1000000;
+- Register: MMSYS + 0x114
+- Value: existing | 0x01000000
+- Condition: switch case 2
+- Function: FUN_0004057c
+Line 45716 — READ+WRITE at MMSYS+0x104 (value |= 0x00400803):
+_DAT_ffff000014000104 = _DAT_ffff000014000104 | 0x400803;
+- Register: MMSYS + 0x104
+- Value: existing | 0x00400803
+- Condition: switch case 2
+- Function: FUN_0004057c
+Line 45751 — READ+WRITE at MMSYS+0x1A4 (value |= 1):
+_DAT_ffff0000140001a4 = _DAT_ffff0000140001a4 | 1;
+- Register: MMSYS + 0x1A4
+- Value: existing | 0x00000001
+- Condition: switch case 0x10
+- Function: FUN_0004057c
+Line 45757 — READ+WRITE at MMSYS+0x104 (value |= uVar1):
+_DAT_ffff000014000104 = _DAT_ffff000014000104 | uVar1;
+- Register: MMSYS + 0x104
+- Value: existing | uVar1 (varies: 4, 0x20000, 0x10, 8, 0x80, 0x400, 0x200, 0x100, 0x2000, 0x4000, 0x10000, 0x80000, 0x20)
+- Function: FUN_0004057c
+Function: FUN_000420d0 (lines 47098-47158) — MMSYS Switch Config
+Line 47151 — READ+WRITE at MMSYS+0xF04 (value = (existing & 0xFFFFFFFC) | 2):
+_DAT_ffff000014000f04 = _DAT_ffff000014000f04 & 0xfffffffc | 2;
+- Register: MMSYS + 0xF04
+- Value: (existing & 0xFFFFFFFC) | 0x00000002 (clear bits 1:0, set bit 1)
+- Function: FUN_000420d0
+Line 47156 — READ+WRITE at MMSYS+0xF04 (value = (existing & uVar3) | uVar1):
+_DAT_ffff000014000f04 = _DAT_ffff000014000f04 & uVar3 | uVar1;
+- Register: MMSYS + 0xF04
+- Value: (existing & uVar3) | uVar1 (uVar3=0xFFFFFFF3, uVar1=8; clears bits 3:2, sets bit 3)
+- Function: FUN_000420d0
+Function: FUN_00042748 (lines 47200-47223) — MMSYS Address Table Initialization
+Line 47203 — WRITE to global variable (store MMSYS address):
+DAT_000ad8c8 = 0xffff000014000f14;
+- Target: DAT_000ad8c8 (global table entry)
+- Value: 0xffff000014000f14 (MMSYS + 0xF14)
+- Function: FUN_00042748
+Line 47204 — WRITE to global variable:
+DAT_000ad920 = 0xffff000014000f18;
+- Target: DAT_000ad920
+- Value: 0xffff000014000f18 (MMSYS + 0xF18)
+- Function: FUN_00042748
+Line 47205 — WRITE to global variable:
+DAT_000ad978 = 0xffff000014000f1c;
+- Target: DAT_000ad978
+- Value: 0xffff000014000f1c (MMSYS + 0xF1C)
+- Function: FUN_00042748
+Line 47206 — WRITE to global variable:
+DAT_000ad9d0 = 0xffff000014000f20;
+- Target: DAT_000ad9d0
+- Value: 0xffff000014000f20 (MMSYS + 0xF20)
+- Function: FUN_00042748
+Line 47207 — WRITE to global variable:
+DAT_000ada28 = 0xffff000014000f38;
+- Target: DAT_000ada28
+- Value: 0xffff000014000f38 (MMSYS + 0xF38)
+- Function: FUN_00042748
+Line 47208 — WRITE to global variable:
+DAT_000ada60 = 0xffff000014000f0c;
+- Target: DAT_000ada60
+- Value: 0xffff000014000f0c (MMSYS + 0xF0C)
+- Function: FUN_00042748
+Line 47209 — WRITE to global variable:
+DAT_000ada98 = 0xffff000014000f24;
+- Target: DAT_000ada98
+- Value: 0xffff000014000f24 (MMSYS + 0xF24)
+- Function: FUN_00042748
+Line 47210 — WRITE to global variable:
+DAT_000adad0 = 0xffff000014000f28;
+- Target: DAT_000adad0
+- Value: 0xffff000014000f28 (MMSYS + 0xF28)
+- Function: FUN_00042748
+Line 47211 — WRITE to global variable:
+DAT_000adb08 = 0xffff000014000f30;
+- Target: DAT_000adb08
+- Value: 0xffff000014000f30 (MMSYS + 0xF30)
+- Function: FUN_00042748
+Line 47212 — WRITE to global variable:
+DAT_000adb40 = 0xffff000014000f34;
+- Target: DAT_000adb40
+- Value: 0xffff000014000f34 (MMSYS + 0xF34)
+- Function: FUN_00042748
+SUMMARY TABLE
+#	Range	Line	Register Offset	Direction	Value	Function
+OVL0	 	 	 	 	 	 
+1	OVL0	46723	0x00C	R+W	|=0x00000001	FUN_00041a30
+2	OVL0	46726	0x024	R+W	|=0x00000001	FUN_00041a30
+3	OVL0	46727	0x024	R+W	|=0x01000000	FUN_00041a30
+4	OVL0	46728	0x024	R+W	|=0x04000000	FUN_00041a30
+5	OVL0	46729	0x00C	R+W	|=0x00400000	FUN_00041a30
+6	OVL0	46760	0x00C	W	=0x00000000	FUN_00041b00
+7	OVL0	47036	0x00C	W	=0x00000000	FUN_00041f74
+8	OVL0	47046	0x00C	W	=0x00000000	FUN_00041f74
+9	OVL0	47120	0x024	R+W	&=0xFFFFFFFB	FUN_000420d0
+10	OVL0	47135	0x024	R	&=0xFFFFFFFB	FUN_000420d0
+11	OVL0	47137	0x024	R	|=0x00000004	FUN_000420d0
+12	OVL0	47139	0x024	W	=uVar1	FUN_000420d0
+DISP_MUTEX0	 	 	 	 	 	 
+--	N/A	--	--	--	NO ACCESSES	--
+MMSYS	 	 	 	 	 	 
+13	MMSYS	45522	0x8E0	R	-> uVar3	FUN_00040064
+14	MMSYS	45523	0x8DC	R	-> uVar1	FUN_00040064
+15	MMSYS	45524	0x100	R	-> uVar7	FUN_00040064
+16	MMSYS	45526	0xE9C	R	-> local_80	FUN_00040064
+17	MMSYS	45527	0xEA0	R	-> local_7c	FUN_00040064
+18	MMSYS	45528	0xEA4	R	-> local_78	FUN_00040064
+19	MMSYS	45529	0xE80	R	-> local_74	FUN_00040064
+20	MMSYS	45530	0xE84	R	-> local_70	FUN_00040064
+21	MMSYS	45531	0xE88	R	-> local_6c	FUN_00040064
+22	MMSYS	45532	0xEA8	R	-> local_98[0]	FUN_00040064
+23	MMSYS	45533	0xEAC	R	-> local_98[1]	FUN_00040064
+24	MMSYS	45534	0xEB0	R	-> local_98[2]	FUN_00040064
+25	MMSYS	45535	0xE70	R	-> local_98[3]	FUN_00040064
+26	MMSYS	45536	0xE74	R	-> local_98[4]	FUN_00040064
+27	MMSYS	45537	0xE78	R	-> local_98[5]	FUN_00040064
+28	MMSYS	45544	0x110	R	-> uVar2	FUN_00040064
+29	MMSYS	45655	0x108	R+W	|=0x00420803	FUN_00040490
+30	MMSYS	45691	0x108	R+W	|=0x00080000	FUN_00040490
+31	MMSYS	45698	0x108/0x118/0x1A8	R+W	|=uVar2	FUN_00040490
+32	MMSYS	45715	0x114	R+W	|=0x01000000	FUN_0004057c
+33	MMSYS	45716	0x104	R+W	|=0x00400803	FUN_0004057c
+34	MMSYS	45751	0x1A4	R+W	|=0x00000001	FUN_0004057c
+35	MMSYS	45757	0x104	R+W	|=uVar1	FUN_0004057c
+36	MMSYS	47151	0xF04	R+W	&=0xFFFFFFFC | 2	FUN_000420d0
+37	MMSYS	47156	0xF04	R+W	&=0xFFFFFFF3 | 8	FUN_000420d0
+38-47	MMSYS	47203-47212	0xF0C-0xF38	W (addr store)	addresses stored to globals	FUN_00042748
+Total: 47 access events (12 OVL0, 0 DISP_MUTEX0, 35 MMSYS including 10 address-table stores)
