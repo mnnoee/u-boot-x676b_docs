@@ -45,6 +45,9 @@
 - ✅ **PHY probe** — `MUSB: PHY probed OK`, контроллер поднимается
 - ✅ **Bootmenu** — с fastboot по умолчанию, навигация с зацикливанием
 - ✅ **Serial по UART** — 921600 baud, testpoints рядом с fingerprint connector
+- ✅ **Кнопки** — Volume Up / Down работают, управляют bootmenu.
+      Самописный драйвер `drivers/button/button-mtk-kp.c` (в форке ellyq такого
+      драйвера не было), узлы `volume-up` / `volume-down` в DTS.
 
 ### Что не работает
 
@@ -54,7 +57,6 @@
       **Это текущий блокер проекта.**
 - ❌ **Загрузка Android** — ядро стартует и паникует:
       `Attempted to kill init!` (не тот DTB)
-- ❌ **Кнопки в U-Boot** — ADC-драйвер есть (v88/v89), но в DTS нет `adc-keys`
 
 ## Репозитории
 

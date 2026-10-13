@@ -50,6 +50,7 @@ Register bank 0x11f40300+ (НЕ 0x000+!):
 | `0x11240000` | MSDC1 (SD-карта) — **не работает, текущий блокер** |
 | `0x11f40000` | USB PHY |
 | `0x11012000` | Keypad controller (ADC) |
+| `0x10010000` | Keypad controller KP (кнопки Volume Up/Down) |
 | `0x14000000` | MMSYS (дисплей) |
 | `0x14013000` | DSI0 — инициализирует LK |
 | `0x43FFF000` | Буфер раннего лога |
