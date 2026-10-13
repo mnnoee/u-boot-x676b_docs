@@ -75,7 +75,26 @@ dmesg | grep tty
 См. [USB_ISSUES.md](USB_ISSUES.md)
 
 ### U-Boot загружается, но нет дисплея
-Это известная проблема. simple-framebuffer был удалён из-за crash. Дисплей пока не поддерживается.
+
+**Дисплей работает** (начиная с v183/v187). Если текста нет:
+
+- Проверить, что `CONFIG_VIDEO_MTK_G99=y` в `configs/mt6789_infinix_x676b_defconfig`
+- Проверить, что после ручной записи в кадр сделан `dc cvac` — OVL читает
+  из DRAM, а `mw.l` пишет только в кэш CPU:
+  ```bash
+  dc cvac 0xfeabe000 0xa3e000
+  ```
+- Снять диагностический буфер драйвера (сразу за кадром):
+  ```bash
+  md.l 0xff4a1400 20
+  ```
+  magic `0xDEADBEEF` на месте — драйвер отработал полностью
+- Подробности: [docs/hardware/display.md](https://github.com/mnnoee/u-boot-mtk-g99/blob/mt6789-stable/docs/hardware/display.md)
+
+### SD-карта не определяется
+
+Текущий блокер проекта. Полный журнал попыток v161…v219 и следующий шаг:
+[docs/hardware/sd-card-msdc1.md](https://github.com/mnnoee/u-boot-mtk-g99/blob/mt6789-stable/docs/hardware/sd-card-msdc1.md).
 
 ## Ядро Linux
 

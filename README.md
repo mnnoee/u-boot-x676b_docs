@@ -29,21 +29,41 @@
 
 ## Текущий статус
 
-### Что работает (обновлено 2026-07-11)
-- ✅ PHY probe успешен (`MUSB: PHY probed OK`)
-- ✅ MUSB инициализируется
-- ✅ Bootmenu загружается (с Fastboot по умолчанию)
-- ✅ UFS storage доступен
-- ✅ USB stack стабилен
-- ✅ Чтение UFS работает
-- ✅ **USB CDC ACM работает** — PC видит устройство как `U-Boot USB download gadget` на `/dev/ttyACM1`
-- ✅ Serial подключение работает (921600 baud)
-- ✅ **Button/Keypad driver работает** (v88) — `button vup` и `button vdown` корректно определяют нажатие
-- ✅ **Кнопки интегрированы в bootmenu** (v89) — Volume Up = Enter, Volume Down = скролл вниз
-- ✅ **Навигация с зацикливанием** — последний пункт → первый, первый → последний
+> Состояние по коммиту `v219` от 2026-08-10.
+> Актуальная документация — [`u-boot-mtk-g99/docs/`](https://github.com/mnnoee/u-boot-mtk-g99/tree/mt6789-stable/docs).
 
-### Проблемы
-- ❌ Дисплей не работает (simple-framebuffer removed)
+### Что работает
+
+- ✅ **Дисплей** — текст U-Boot выводится на AMOLED 1080×2400 (v183/v187).
+      Собственный драйвер `drivers/video/mediatek/mtk_disp_g99.c`:
+      конвейер OVL0 → RDMA0 → DITHER0 → DSI0, панель ILI7835F.
+      Подробности: [docs/hardware/display.md](https://github.com/mnnoee/u-boot-mtk-g99/blob/mt6789-stable/docs/hardware/display.md)
+- ✅ **USB fastboot** — устройство перечисляется на ПК по USB
+- ✅ **USB CDC ACM** — консоль U-Boot по USB, UART-кабель не нужен
+- ✅ **UMS / fastboot block по UFS** — память телефона видна на ПК (`ums 0 scsi 2`)
+- ✅ **UFS storage** — чтение и запись работают
+- ✅ **PHY probe** — `MUSB: PHY probed OK`, контроллер поднимается
+- ✅ **Bootmenu** — с fastboot по умолчанию, навигация с зацикливанием
+- ✅ **Serial по UART** — 921600 baud, testpoints рядом с fingerprint connector
+
+### Что не работает
+
+- ❌ **SD-карта (MSDC1)** — контроллер поднимается, но карта не отвечает:
+      `CMD8` → `INT=0x400`, `RSP=0`. Журнал всех попыток v161…v219 —
+      [docs/hardware/sd-card-msdc1.md](https://github.com/mnnoee/u-boot-mtk-g99/blob/mt6789-stable/docs/hardware/sd-card-msdc1.md).
+      **Это текущий блокер проекта.**
+- ❌ **Загрузка Android** — ядро стартует и паникует:
+      `Attempted to kill init!` (не тот DTB)
+- ❌ **Кнопки в U-Boot** — ADC-драйвер есть (v88/v89), но в DTS нет `adc-keys`
+
+## Репозитории
+
+| | |
+|---|---|
+| **U-Boot (исходники)** | [github.com/mnnoee/u-boot-mtk-g99](https://github.com/mnnoee/u-boot-mtk-g99) — форк `ellyq`, ветка `mt6789-stable` |
+| **Документация (этот репозиторий)** | [github.com/mnnoee/u-boot-x676b_docs](https://github.com/mnnoee/u-boot-x676b_docs) |
+| **Образы и скрипты** | [github.com/mnnoee/u-boot-x676b](https://github.com/mnnoee/u-boot-x676b) |
+| **Device Tree** | [github.com/mnnoee/u-boot-x676b_dtbo](https://github.com/mnnoee/u-boot-x676b_dtbo) |
 
 ## Быстрый старт
 

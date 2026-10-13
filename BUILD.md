@@ -29,33 +29,38 @@ cd /workdir/git/heliog99/u-boot-mtk-g99
   /workdir/git/heliog99/u-boot-x676b/uboot-lk-x676b-v{N}.img
 ```
 
-## Early Log (RAM dump)
+## Early Log (буфер в RAM)
 
-Лог хранится в 16MB буфере в RAM (без UART, через ramops).
+Лог пишется прямо в оперативную память — работает без UART и без USB.
+Реализация: `include/early_log.h` в репозитории U-Boot.
 
 | Параметр | Значение |
 |----------|----------|
-| Адрес буфера | `0x48000000` |
+| Адрес буфера | `0x43FFF000` |
 | Размер | 16 MB (`0x1000000`) |
 | Заголовок | 16 байт: magic(4) + idx(4) + seq(4) + pad(4) |
-| magic | `0x454C4F47` ("GOLE") |
-| idx | количество записанных байт данных |
+| magic | `0x454C4F47` (в памяти читается как `"GOLE"`) |
+| idx | смещение записи (кольцевой буфер) |
 | seq | порядковый номер сообщения |
 
 ### Чтение лога
 
 ```bash
-# Через mtkclient (полный дамп 256KB — обычно хватает)
+# Через mtkclient (дамп с заданного адреса)
 cd /workdir/git/heliog99/mtkclient
-python mtk r 0x48000000 0x40000 /workdir/git/heliog99/u-boot-x676b/ram-dump-v{N}.bin
+python mtk r 0x43fff000 0x40000 /workdir/git/heliog99/u-boot-x676b/ram-dump-v{N}.bin
 
-# Или через U-Boot shell (если доступен)
-md.l 0x48000000 4        # заголовок: magic | idx | seq | pad
-md.l 0x48000010 0x10000  # данные (64KB)
+# Или через консоль U-Boot (ACM или UART) — после загрузки
+md.l 0x43fff000 4          # заголовок: magic | idx | seq | pad
+md.b 0x43fff010 800        # данные — ASCII
 
 # Декодирование hex → текст
 python /workdir/git/heliog99/decode_hex.py
 ```
+
+> ⚠️ Буфер занимает **16 МБ DRAM постоянно**. Уменьшить в `include/early_log.h`.
+> Записи сбрасываются в память через `dc cvac` + `dsb`, поэтому читаются с ПК
+> корректно без перезагрузки.
 
 ## Прошивка
 
