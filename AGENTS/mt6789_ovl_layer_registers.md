@@ -61,9 +61,30 @@ LK writes buffer address at offset `0xf40` (line 46988):
 ```
 Where `lVar1 = base + (iVar8 + param_10 * 0x20)` — confirms 0x20 layer spacing.
 
+## Confirmed Layer 1 Layout (from live device 2026-08-05)
+
+Fresh dump `md.l 0x14005050 8` and `md.l 0x14005f60 1`:
+
+| Offset | Address | Value | Register |
+|--------|---------|-------|----------|
+| +0x050 | 0x14005050 | 0x000021ff | **L1_CON**: alpha=0xff, AEN=1, format=2<<12 (ARGB8888) |
+| +0x054 | 0x14005054 | 0x00000000 | (reserved/unused) |
+| +0x058 | 0x14005058 | 0x09600438 | **L1_SRC_SIZE**: 2400×1080 (height<<16 \| width) |
+| +0x05c | 0x1400505c | 0x00000000 | **L1_OFFSET**: x=0, y=0 |
+| +0x060 | 0x14005060 | 0x00100000 | **L1_PITCH_MSB** (or DMA_CTRL) |
+| +0x064 | 0x14005064 | 0x000010e0 | **L1_PITCH**: 4320 = 1080×4 bytes |
+| +0x0f60 | 0x14005f60 | 0xfeabe000 | **L1_ADDR**: same FB as Layer 0 |
+
+**Key finding**: Layer 1 is enabled by LK, points to the same FB (`0xfeabe000`), and is the active
+layer (SRC_CON bit 1 = enabled). The driver configures Layer 0 but it's disabled (SRC_CON bit 0 = 0).
+
 ## How to Read from Device
 
 ```
-=> md.l 0x14005f40 0x20
+# L0-L3 address registers:
+=> md.l 0x14005f40 4
+# L1 config (CON, SRC_SIZE, PITCH):
+=> md.l 0x14005050 8
+# SRC_CON (which layers are enabled):
+=> md.l 0x1400502c 1
 ```
-This reads L0-L3 address registers and surrounding layer config.

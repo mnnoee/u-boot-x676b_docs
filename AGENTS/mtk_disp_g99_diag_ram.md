@@ -63,3 +63,44 @@ md.l 0xff4a1450 2
 | F00DFACE | 0x1 | early return: uc_priv/fb/fb_size = NULL |
 | F00DFACE | 0x2 | полный успех: flush + DSI trigger выполнен |
 | — | — | ops->video_sync не вызывается вообще |
+
+## Интерпретация vidconsole (0xff4a1420)
+| +0x20 | Значение | Что означает |
+|-------|----------|--------------|
+| C0FFEE00 | probe() записал до lcdputs | Первый снимок |
+| C0FFEE01 | video_sync() записал при первом вызове | Второй снимок |
+| C0FFEE00 |Probe перезаписал (перезагрузка) | |
+
+## Свежая диагностика (2026-08-05, после перезагрузки)
+
+Пример вывода `md.l 0xff4a1400 24`:
+```
+ff4a1400: deadbeef feabe000 feabe000 009e3400  .............4..
+ff4a1410: 009e3400 00000000 00000000 00000000  .4..............
+ff4a1420: c0ffee00 ffffffff ffffffff ffffffff  ................
+ff4a1430: ffffffff ffffffff ffffffff 00000000  ................
+ff4a1450: f00dface 00000002 00000000 00000000  ................
+```
+
+Интерпретация:
+- `deadbeef` — probe() отработал
+- `fb = feabe000`, `plat->base = feabe000`, `fb_size = 9e3400` (10 368 000 байт = 1080×2400×4)
+- `c0ffee00` — vidconsole snapshot от probe()
+- `ffffffff` в +0x24..+0x3c — vidconsole не найден в момент probe() (ещё не создан)
+- `f00dface 00000002` — video_sync() отработал успешно (полный flush + DSI trigger)
+
+**Критическое наблюдение**: video_sync() отработал (status=0x2), значит драйвер переконфигурировал
+пайплайн и отправил кадр. Любая ручная команда shell до этого момента была перетёрта.
+
+## Важно: vidconsole мешает ручным экспериментам
+
+`stdout=serial,usbacm,vidconsole` → каждый `printf`/`md.l` в shell вызывает `video_sync()`,
+который:
+1. Отключает OVL
+2. Заново настраивает MMSYS routing, OVL, MUTEX
+3. Заливает свой кадр
+4. Триггерит DSI
+
+Поэтому **никакой ручной эксперимент не является чистым**, пока vidconsole в stdout.
+Решение: либо убрать vidconsole из stdout (`setenv stdout serial,usbacm`), либо отключить
+драйвер entirely.

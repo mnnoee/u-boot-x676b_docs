@@ -88,3 +88,15 @@ bit_position = (pin_within_range % 8) * 4
 - SDC_CMD: 0x11240064
 - SDC_CMD_ARG: 0x11240068
 - SDC_RESP0: 0x11240080
+- MSDC_FIFOCON: 0x112400E0 (сброс FIFO: write 0x03)
+- MSDC_SOFT_RST: 0x1124000C (сброс контроллера: write 0x01)
+
+## Текущий статус (2026-07-17)
+- Pin mode registers НАСТРОЕНЫ правильно (0x10005380/0x10005390)
+- VMCH/VMC LDO включены
+- MSDCPLL включён
+- Source clock gate enabled (bit 15=0)
+- Но карта **не отвечает** на CMD0 — response registers全部 нули
+- mmc rescan "проходит" из-за MMC_BROKEN_CD (карта считается вставленной)
+- mmc info/show nothing — карта не инициализирована
+- **Причина**: source clock не тактирует карту (F26M crystal может быть отключён на UFS-boot плате)
